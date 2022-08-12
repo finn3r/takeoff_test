@@ -1,5 +1,5 @@
 import React from 'react';
-import spinner from "../assets/spinner.svg";
+import spinner from "../assets/Spinner.svg";
 import * as ST from '../styled';
 
 const Spinner: React.FC = () => {

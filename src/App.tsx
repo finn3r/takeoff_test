@@ -1,33 +1,31 @@
 import React, {useEffect} from 'react';
 import * as ST from './styled';
-import Layout from "./components/Layout";
-import axios from "axios";
-import { userSlice} from "./store/reducers/UserSlice";
-import {useAppDispatch} from "./hooks/redux";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import {userAPI} from "./services/UserService";
+import {useAppSelector} from "./hooks/redux";
+import Spinner from "./components/Spinner";
 
 const App: React.FC = () => {
-    const {setUser, changeStatus} = userSlice.actions;
-    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const {id} = useAppSelector(state => state.auth);
+    const {isError, isSuccess, isLoading} = userAPI.useGetUserQuery(id);
 
     useEffect(() => {
-        const access_token: string = localStorage.getItem("access_token") || "";
-        const user_id: number = Number(localStorage.getItem("user_id"));
-        if (user_id !== 0 && access_token !== "") {
-            axios.get(`http://localhost:8000/users/${user_id}`, {
-                headers: {
-                    'Authorization': `Bearer ${access_token}`
-                }
-            }).then((res) => {
-                dispatch(setUser(res.data));
-            }).catch(() => {
-                dispatch(changeStatus("Not authorized"));
-            });
-        } else dispatch(changeStatus("Not authorized"));
-    }, [dispatch, setUser, changeStatus]);
+        if (isError) navigate('/login');
+        if (isSuccess) navigate('/');
+    }, [isSuccess, isError, navigate]);
 
     return (
         <ST.AppWrapper>
-            <Layout/>
+            <Routes>
+                <Route path={'/'} element={<Home/>}/>
+                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/*'} element={<NotFound/>}/>
+            </Routes>
+            {isLoading ? <Spinner/> : null}
         </ST.AppWrapper>
     );
 };
