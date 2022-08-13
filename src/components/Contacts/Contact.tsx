@@ -21,7 +21,7 @@ const Contact: React.FC<{contact: IContact}> = ({contact}) => {
     };
 
     return (
-        <div style={{border: "1px solid black", display: "flex", justifyContent: "space-between", padding: "10px", alignItems: "center"}}>
+        <ST.ContactContainer>
             <ST.ProfileImageContainer style={{width: "20%"}}>
                 <ST.UserProfileImage src={contact.image ? contact.image : def_img}/>
             </ST.ProfileImageContainer>
@@ -30,7 +30,7 @@ const Contact: React.FC<{contact: IContact}> = ({contact}) => {
             <p>{contact.phone}</p>
             <button onClick={handleEdit}>Edit</button>
             <button onClick={handleDelete}>Delete</button>
-        </div>
+        </ST.ContactContainer>
     );
 };
 

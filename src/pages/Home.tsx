@@ -2,7 +2,6 @@ import React from 'react';
 import * as ST from '../styled';
 import Spinner from "../components/Spinner";
 import ContactEditor from "../components/ContactEditor";
-import UserContact from "../components/UserContact";
 import Contacts from "../components/Contacts";
 import {userAPI} from "../services/UserService";
 import {useAppSelector} from "../hooks/redux";
@@ -13,7 +12,6 @@ const Home: React.FC = () => {
 
     return (isLoading ? <Spinner/> :
         <ST.HomeContainer>
-            <UserContact/>
             <Contacts/>
             <ContactEditor/>
         </ST.HomeContainer>);

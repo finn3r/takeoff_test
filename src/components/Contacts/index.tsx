@@ -6,6 +6,8 @@ import {editorSlice} from "../../store/reducers/EditorSlice";
 import {userAPI} from "../../services/UserService";
 import Spinner from "../Spinner";
 import {IContact} from "../../models/IContact";
+import {ReactComponent as AddContactButton} from "../../assets/AddContactButton.svg";
+import UserContact from "../UserContact";
 
 const Contacts: React.FC = () => {
     const [searchInput, setSearchInput] = useState<string>("");
@@ -26,7 +28,6 @@ const Contacts: React.FC = () => {
             ) : [];
         setContacts(filteredContacts);
     }, [data, searchQuery]);
-
     /*Конец блока*/
 
     const handleAdd = () => {
@@ -39,18 +40,25 @@ const Contacts: React.FC = () => {
 
     return (
         <ST.ContactsContainer>
-            <ST.ContactsSearchInput value={searchInput} onChange={handleSearch}/>
-            <ST.ContactsAddButton onClick={handleAdd}>
-                Add
-            </ST.ContactsAddButton>
-            {
-                (isLoading) ? <Spinner/> :
+            <ST.ContactsHeader>
+                <ST.ContactsHeaderSearch>
+                    <ST.ContactsSearchInput value={searchInput} onChange={handleSearch}/>
+                    <ST.ContactsAddButton onClick={handleAdd}>
+                        <AddContactButton/>
+                        Новый контакт
+                    </ST.ContactsAddButton>
+                </ST.ContactsHeaderSearch>
+                <UserContact/>
+            </ST.ContactsHeader>
+            <ST.ContactsContent>
+                {(isLoading) ? <Spinner/> :
                     contacts!.length > 0 ? contacts!.map((contact, id) => <Contact contact={contact} key={id}/>)
                         :
                         <ST.ContactsText>
                             Ничего не найдено.
                         </ST.ContactsText>
-            }
+                }
+            </ST.ContactsContent>
         </ST.ContactsContainer>
     );
 };

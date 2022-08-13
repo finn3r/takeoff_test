@@ -181,29 +181,11 @@ export const CloseButtonContainer = styled.div`
   width: 40px;
   height: 40px;
   opacity: 0.7;
-  :hover{
+
+  :hover {
     cursor: pointer;
     opacity: 1;
   }
-`;
-
-export const ProfileImageContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 9999px;
-  width: 100%;
-  margin-top: 10px;
-`;
-
-export const ProfileImage = styled.img`
-  border-radius: 9999px;
-  width: 50%;
-`;
-
-export const UserProfileImage = styled(ProfileImage)`
-  width: 80%;
 `;
 
 export const AddPhotoButtonContainer = styled.label`
@@ -211,7 +193,8 @@ export const AddPhotoButtonContainer = styled.label`
   padding: 5px;
   border-radius: 9999px;
   background: rgba(0, 0, 0, 0.4);
-  :hover{
+
+  :hover {
     cursor: pointer;
   }
 `;
@@ -249,67 +232,129 @@ export const ImageCropButton = styled(SubmitButton)`
   margin: 10px 0;
 `;
 
-export const UserContainer = styled.div`
-  background: rgba(103, 95, 115, 0.66);
+export const ProfileImage = styled.img`
+  border-radius: 9999px;
+  width: 50%;
+`;
+
+export const ProfileImageContainer = styled.div`
+  position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
   height: 100%;
-  flex: 0 1 min-content;
-  justify-content: space-between;
-  box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.5);
-`;
-
-export const UserContactsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const UserContact = styled.div`
-  padding: 10px 20px 0;
-  text-align: center;
-  min-width: 150px;
-  font-size: 16px;
-  color: white;
-`;
-
-export const UserExitButton = styled(Button)`
-  background: none;
-  margin: 15px 50px;
-  border: none;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 16px;
-
-  :hover {
-    color: rgb(255, 76, 47);
-  }
-`;
-
-export const UserEditButton = styled(UserExitButton)`
-  margin: 40px 50px;
-  color: rgba(255, 255, 255, 0.6);
-  :hover {
-    color: white;
-  }
+  width: 100%;
+  margin-top: 10px;
 `;
 
 export const ContactsContainer = styled.div`
-  background: rgba(232, 215, 241, 0.56);
+  background: whitesmoke;
   display: flex;
   flex-direction: column;
   height: 100%;
   flex: 1 1 auto;
 `;
 
-export const ContactsText = styled.p`
-
+export const ContactsHeader = styled.header`
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+  height: 30px;
 `;
 
-export const ContactsAddButton = styled.button`
-
+export const ContactsHeaderSearch = styled.header`
+  height: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const ContactsSearchInput = styled.input`
+  height: 100%;
+  padding: 5px 20px;
+  font-size: 16px;
+  border: 2px solid rgb(209, 213, 219);
+  border-radius: 20px;
+  flex: 1 1 auto;
+`;
 
+export const ContactsAddButton = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  min-width: 163px;
+  padding: 5px 10px 5px 2px;
+  border: 2px solid rgb(209, 213, 219);
+  border-radius: 20px;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const UserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5px 0;
+  border: 2px solid rgb(209, 213, 219);
+  border-radius: 20px;
+`;
+
+export const UserProfileContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  :hover{
+    cursor: pointer;
+  }
+`;
+
+export const UserEditButton = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const UserExitButton = styled(UserEditButton)`
+  
+`;
+
+export const UserProfileImage = styled(ProfileImage)`
+  height: 40px;
+  width: 40px;
+  margin-right: 5px;
+`;
+
+export const UserProfileName = styled.p`
+  font-size: 16px;
+  margin-right: -3px;
+`;
+
+export const ContactsText = styled.p`
+  font-size: 30px;
+`;
+
+export const ContactsContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ContactContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: .5fr 1fr 1fr 1fr .3fr .3fr;
 `;
