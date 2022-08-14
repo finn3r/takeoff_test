@@ -1,40 +1,49 @@
 import styled, {createGlobalStyle} from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    margin: 0;
   }
 `;
 
 export const AppWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  @media (max-width: 700px), (max-height: 500px) {
-    height: calc(var(--vh, 1vh) * 100);
-  }
   background: #f8f8f8;
+  overflow-x: hidden;
 `;
 
 export const Button = styled.button`
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
   transition: all 250ms ease 0s;
+  border: none;
+  border-radius: 20px;
+  background: none;
 
   :hover {
     cursor: pointer;
   }
 `;
 
-export const NotFoundContainer = styled.div`
-  position: absolute;
+export const FlexContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  top: 0;
-  left: 0;
-  width: 100%;
+  justify-content: center;
   height: 100%;
+  width: 100%;
+`;
+
+export const NotFoundContainer = styled(FlexContainer)`
+  flex-direction: column;
 `;
 
 export const NotFoundText = styled.p`
@@ -45,51 +54,38 @@ export const NotFoundCode = styled.p`
   font-size: 100px;
 `;
 
-export const LoginContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-`;
-
 export const Form = styled.form`
   display: flex;
   position: relative;
   flex-direction: column;
-  padding: 40px 30px;
+  padding: 30px;
+  gap: 20px;
   background: linear-gradient(#2e3a6a, #2f0b45);
   border-radius: 10px;
-  max-height: 100%;
   width: 100%;
   max-width: 300px;
 `;
 
-export const LoginHeader = styled.header`
+export const NavigationContainer = styled.div`
   font-size: 20px;
-  margin-left: 20px;
+  display: flex;
+  gap: 20px;
 `;
 
-export const LoginContent = styled.div`
+export const FormContent = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  gap: 10px;
 `;
 
-export const LoginNavigationButton = styled(Button)<{ active?: boolean }>`
-  border: none;
-  background: none;
-  text-transform: uppercase;
+export const NavigationButton = styled(Button)<{ active?: boolean }>`
   padding: 0 0 5px;
-  margin-right: 20px;
+  border-radius: 0;
   color: white;
   opacity: ${props => props.active ? "1" : "0.5"};
   border-bottom: 2px solid ${props => props.active ? "#eec111" : "rgba(0,0,0,0)"};
-`;
-
-export const InputLabel = styled.label`
-  color: #7f8291;
-  margin: 15px 20px 5px;
+  font-family: 'Montserrat', sans-serif;
 `;
 
 export const Input = styled.input`
@@ -100,11 +96,16 @@ export const Input = styled.input`
   font-size: 16px;
   background: rgba(255, 255, 255, 0.2);
   color: white;
+
+  ::placeholder {
+    color: #9a9a9a;
+  }
 `;
 
-export const InputError = styled.p`
-  color: #bf1650;
-  margin: 0;
+export const InputError = styled.div`
+  color: #FF3700FF;
+  font-size: 14px;
+  margin: -10px 0 5px;
 
   ::before {
     display: inline;
@@ -112,7 +113,7 @@ export const InputError = styled.p`
   }
 `;
 
-export const LoginFetching = styled.div<{ active?: boolean }>`
+export const FormFetching = styled.div<{ active?: boolean }>`
   position: absolute;
   left: 0;
   top: 0;
@@ -125,27 +126,13 @@ export const LoginFetching = styled.div<{ active?: boolean }>`
 `;
 
 export const SubmitButton = styled(Button)`
-  margin-top: 15px;
-  border-radius: 20px;
   padding: 10px 5px;
-  background: rgba(246, 185, 26, 0.8);
+  background: rgb(246, 185, 26);
   color: white;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 16px;
 
   :hover {
     background: rgba(246, 185, 26, 0.9);
   }
-`;
-
-export const SpinnerContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const Spinner = styled.img`
@@ -153,10 +140,19 @@ export const Spinner = styled.img`
   height: 30%;
 `;
 
-export const HomeContainer = styled.div`
+export const ProfileImage = styled.img`
+  border-radius: 9999px;
   width: 100%;
   height: 100%;
-  display: flex;
+`;
+
+export const ImageInputContainer = styled(FlexContainer)`
+  position: relative;
+  margin-top: 10px;
+`;
+
+export const ImageInputContent = styled.div`
+  width: 50%;
 `;
 
 export const ContactPopUpContainer = styled.div`
@@ -232,129 +228,250 @@ export const ImageCropButton = styled(SubmitButton)`
   margin: 10px 0;
 `;
 
-export const ProfileImage = styled.img`
-  border-radius: 9999px;
-  width: 50%;
+export const HomeContainer = styled.div`
+  background: #d1dded;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: "sidebar header"
+                       "sidebar content";
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 60px 1fr;
 `;
 
-export const ProfileImageContainer = styled.div`
-  position: relative;
+export const HomeHeader = styled.div`
+  background: white;
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const UserContainer = styled.div`
+  margin: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+export const UserProfileImage = styled(ProfileImage)`
+  width: 45px;
+  height: 45px;
+`;
+
+export const UserButton = styled.img`
+  transition: all 250ms ease 0s;
+  opacity: 0.5;
+  width: 35px;
+  height: 35px;
+
+  :hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+`;
+
+export const HeaderText = styled.p`
+  color: #1c1c2a;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0 30px;
+  font-size: 25px;
+`;
+
+export const HomeSidebar = styled.div`
+  grid-area: sidebar;
+  color: white;
+  background: #95b7e6;;
+  width: fit-content;
+  height: 100%;
+`;
+
+export const SidebarVariants = styled.div`
+  margin-top: 20px;
+`;
+
+export const SidebarVariant = styled.div<{ active?: boolean }>`
+  font-family: 'Montserrat', sans-serif;
+  padding: 15px 40px 15px 15px;
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  border-left: 4px solid ${props => props.active ? "#51739d" : "rgba(0,0,0,0)"};
+  background: ${props => props.active ? 'linear-gradient(to right, #7ca2d6, #95b7e6)' : "rgba(0,0,0,0)"}
+`;
+
+export const SidebarVariantIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+`;
+
+export const SidebarVariantText = styled.p`
+  @media (max-width: 700px), (max-height: 500px) {
+    display: none;
+  }
+`;
+
+export const HomeSiteNameContainer = styled.div`
+  height: 60px;
+  font-size: 25px;
+  background: #7ca2d6;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 9999px;
-  height: 100%;
-  width: 100%;
-  margin-top: 10px;
+  text-transform: uppercase;
 `;
 
-export const ContactsContainer = styled.div`
-  background: whitesmoke;
-  display: flex;
-  flex-direction: column;
+export const HomeSiteNameText = styled.p`
+  @media (max-width: 700px), (max-height: 500px) {
+    display: none;
+  }
+`;
+
+export const HomeContent = styled.div`
+  grid-area: content;
+  margin: 20px;
+`;
+
+
+export const ContactsContainer = styled(FlexContainer)`
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header"
+                       "content";
+  width: 100%;
   height: 100%;
-  flex: 1 1 auto;
+  background: white;
+  box-shadow: 0 1px 10px 2px rgba(34, 60, 80, 0.2);
+  border-radius: 20px;
 `;
 
 export const ContactsHeader = styled.header`
   display: flex;
-  flex-direction: row;
-  gap: 100px;
-  align-items: center;
-  justify-content: space-between;
-  margin: 20px;
-  height: 30px;
+  gap: 30px;
+  justify-content: start;
+  grid-area: header;
+  padding: 10px;
+  height: 100%;
 `;
 
-export const ContactsHeaderSearch = styled.header`
+export const ContactsSearchContainer = styled.div`
+  position: relative;
   height: 100%;
-  flex: 1 1 auto;
   display: flex;
-  flex-direction: row;
-  gap: 20px;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
 `;
 
 export const ContactsSearchInput = styled.input`
   height: 100%;
-  padding: 5px 20px;
-  font-size: 16px;
-  border: 2px solid rgb(209, 213, 219);
+  border: none;
+  width: 100%;
   border-radius: 20px;
-  flex: 1 1 auto;
+  padding: 0 35px;
+  font-size: 16px;
+  background: rgba(169, 169, 169, 0.2);
 `;
 
-export const ContactsAddButton = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  min-width: 163px;
-  padding: 5px 10px 5px 2px;
-  border: 2px solid rgb(209, 213, 219);
-  border-radius: 20px;
+export const ContactsSearchIcon = styled.img`
+  position: absolute;
+  left: 5px;
+  width: 30px;
+  opacity: 0.6;
+`;
+
+export const ContactsClearIcon = styled(ContactsSearchIcon)<{ hidden?: boolean }>`
+  transition: all 250ms ease 0s;
+  left: auto;
+  right: 5px;
+  display: ${props => props.hidden ? "block" : "none"};
 
   :hover {
     cursor: pointer;
+    opacity: 0.9;
   }
 `;
 
-export const UserContainer = styled.div`
+export const ContactsAddButton = styled(Button)`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: max-content;
+  min-width: 190px;
   height: 100%;
-  padding: 5px 0;
-  border: 2px solid rgb(209, 213, 219);
   border-radius: 20px;
-`;
+  border: 2px solid rgb(209, 213, 219);
+  padding: 10px 10px 10px 5px;
 
-export const UserProfileContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  :hover{
+  :hover {
     cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.9);
   }
 `;
 
-export const UserEditButton = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const AddContactButton = styled.img`
+  opacity: 0.6;
+  width: 35px;
 `;
 
-export const UserExitButton = styled(UserEditButton)`
-  
-`;
-
-export const UserProfileImage = styled(ProfileImage)`
-  height: 40px;
-  width: 40px;
-  margin-right: 5px;
-`;
-
-export const UserProfileName = styled.p`
-  font-size: 16px;
-  margin-right: -3px;
-`;
+export const AddContactText = styled.p``;
 
 export const ContactsText = styled.p`
-  font-size: 30px;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+  color: #232323;
 `;
 
 export const ContactsContent = styled.div`
+  grid-area: content;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ContactContainer = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: .5fr 1fr 1fr 1fr .3fr .3fr;
+  grid-template-columns: 60px 1fr 1fr 1fr 50px 50px;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const ContactInfo = styled.p`
+  color: #232323;
+`;
+
+export const ContactButton = styled.img`
+  opacity: 0.6;
+  width: 35px;
+  transition: all 250ms ease 0s;
+
+  :hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+`;
+
+export const ContactButtonContainer = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+`;
+
+export const ContactsInfoHeader = styled(ContactContainer)`
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px 110px 10px 70px;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid rgba(107, 107, 107, 0.6);
+  border-top: 1px solid rgba(107, 107, 107, 0.6);
 `;

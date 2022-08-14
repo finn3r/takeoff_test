@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import * as ST from "../../styled";
 import def_img from "../../assets/DefaultContactImage.png";
-import {ReactComponent as AddPhotoButton} from "../../assets/AddPhotoButton.svg";
+import {ReactComponent as AddPhotoButton} from "../../assets/AddPhotoIcon.svg";
 import ImageCrop from "./ImageCrop";
 
 interface IProfileImageInputProps {
@@ -17,8 +17,10 @@ const ProfileImageInput: React.FC<IProfileImageInputProps> = ({croppedImage, set
         <>
             <ImageCrop image={uploadedImage} setImage={setCroppedImage}
                        clearUploadImage={() => setUploadedImage(undefined)}/>
-            <ST.ProfileImageContainer>
-                <ST.ProfileImage src={croppedImage ? croppedImage : def_img}/>
+            <ST.ImageInputContainer>
+                <ST.ImageInputContent>
+                    <ST.ProfileImage src={croppedImage ? croppedImage : def_img}/>
+                </ST.ImageInputContent>
                 <ST.AddPhotoButtonContainer htmlFor={"upload-photo"}>
                     <AddPhotoButton/>
                 </ST.AddPhotoButtonContainer>
@@ -29,7 +31,7 @@ const ProfileImageInput: React.FC<IProfileImageInputProps> = ({croppedImage, set
                         e.target.value = '';
                     }}
                 />
-            </ST.ProfileImageContainer>
+            </ST.ImageInputContainer>
         </>
     );
 };

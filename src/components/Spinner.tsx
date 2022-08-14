@@ -4,9 +4,9 @@ import * as ST from '../styled';
 
 const Spinner: React.FC = () => {
     return (
-        <ST.SpinnerContainer>
+        <ST.FlexContainer>
             <ST.Spinner src={spinner} alt={"Loading..."}/>
-        </ST.SpinnerContainer>
+        </ST.FlexContainer>
     );
 };
 

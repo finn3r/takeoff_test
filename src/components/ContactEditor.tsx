@@ -3,7 +3,7 @@ import {editorSlice} from "../store/reducers/EditorSlice";
 import ReactDOM from "react-dom";
 import * as ST from '../styled';
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
-import {ReactComponent as CloseButton} from "../assets/CloseButton.svg";
+import {ReactComponent as CloseButton} from "../assets/CloseIcon.svg";
 import {FieldValues, useForm} from "react-hook-form";
 import Spinner from "./Spinner";
 import ProfileImageInput from "./ProfileImageInput";
@@ -30,6 +30,16 @@ const ContactEditor: React.FC = () => {
     } = useForm();
 
     useEffect(() => {
+        const handleKeyEcs = (e: KeyboardEvent) => {
+            if (e.key === "Escape") dispatch(hide());
+        };
+        document.addEventListener('keydown', handleKeyEcs);
+        return () => {
+            document.removeEventListener('keydown', handleKeyEcs)
+        }
+    }, []);
+
+    useEffect(() => {
         if (contact?.id) {
             setImage(contact.image || "");
             setValue("name", contact.name);
@@ -42,7 +52,10 @@ const ContactEditor: React.FC = () => {
     }, [contact, setValue, reset])
 
     const saveContact = (newData: FieldValues) => {
-        if ((contact?.name!==newData.name)||(contact?.phone!==newData.phone)||(contact?.email!==newData.email)) {
+        if ((contact?.name !== newData.name)
+            || (contact?.phone !== newData.phone)
+            || (contact?.email !== newData.email)
+            || (contact?.image !== image)) {
             if (contact?.id) {
                 const contactData = {...newData, image, id: contact.id} as IContact;
                 if (contact?.userId) {
@@ -64,17 +77,16 @@ const ContactEditor: React.FC = () => {
                 <ST.CloseButtonContainer onClick={() => dispatch(hide())}>
                     <CloseButton/>
                 </ST.CloseButtonContainer>
-                <ProfileImageInput croppedImage={image} setCroppedImage={setImage}/>
-                <ST.InputLabel>Имя</ST.InputLabel>
-                <ST.Input {...register("name")} type={"text"}/>
-                <ST.InputLabel>Email</ST.InputLabel>
-                <ST.Input {...register("email")} type={"email"}/>
-                <ST.InputLabel>Номер телефона</ST.InputLabel>
-                <ST.Input {...register("phone")} type={"tel"}/>
+                <ST.FormContent>
+                    <ProfileImageInput croppedImage={image} setCroppedImage={setImage}/>
+                    <ST.Input placeholder={"Имя"} {...register("name")} type={"text"}/>
+                    <ST.Input placeholder={"Email"} {...register("email")} type={"email"}/>
+                    <ST.Input placeholder={"Телефон"} {...register("phone")} type={"tel"}/>
+                </ST.FormContent>
                 <ST.SubmitButton type={"submit"}>{(contact?.id) ? "Сохранить" : "Создать"}</ST.SubmitButton>
-                <ST.LoginFetching active={contactAddLoading || contactEditLoading || userEditLoading}>
+                <ST.FormFetching active={contactAddLoading || contactEditLoading || userEditLoading}>
                     <Spinner/>
-                </ST.LoginFetching>
+                </ST.FormFetching>
             </ST.Form>
         </ST.ContactPopUpContainer>, modal_root) : null);
 };

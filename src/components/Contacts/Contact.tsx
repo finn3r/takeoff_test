@@ -5,6 +5,8 @@ import def_img from "../../assets/DefaultContactImage.png";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {editorSlice} from "../../store/reducers/EditorSlice";
 import {userAPI} from "../../services/UserService";
+import DeleteIcon from "../../assets/CloseIcon.svg";
+import EditIcon from "../../assets/EditIcon.svg"
 
 const Contact: React.FC<{contact: IContact}> = ({contact}) => {
     const {id} = useAppSelector(state => state.auth);
@@ -22,14 +24,18 @@ const Contact: React.FC<{contact: IContact}> = ({contact}) => {
 
     return (
         <ST.ContactContainer>
-            <ST.ProfileImageContainer style={{width: "20%"}}>
-                <ST.UserProfileImage src={contact.image ? contact.image : def_img}/>
-            </ST.ProfileImageContainer>
-            <p>{contact.name}</p>
-            <p>{contact.email}</p>
-            <p>{contact.phone}</p>
-            <button onClick={handleEdit}>Edit</button>
-            <button onClick={handleDelete}>Delete</button>
+            <ST.UserProfileImage src={contact.image ? contact.image : def_img}/>
+            <ST.ContactInfo>
+                {contact.name}
+            </ST.ContactInfo>
+            <ST.ContactInfo>{contact.email}</ST.ContactInfo>
+            <ST.ContactInfo>{contact.phone}</ST.ContactInfo>
+            <ST.ContactButtonContainer>
+                <ST.ContactButton src={EditIcon} alt={"Edit"} onClick={handleEdit}/>
+            </ST.ContactButtonContainer>
+            <ST.ContactButtonContainer>
+                <ST.ContactButton src={DeleteIcon} alt={"Delete"} onClick={handleDelete}/>
+            </ST.ContactButtonContainer>
         </ST.ContactContainer>
     );
 };
