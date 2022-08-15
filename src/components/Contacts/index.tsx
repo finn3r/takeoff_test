@@ -69,7 +69,9 @@ const Contacts: React.FC = () => {
                                 <ST.ContactInfo>Почта</ST.ContactInfo>
                                 <ST.ContactInfo>Телефон</ST.ContactInfo>
                             </ST.ContactsInfoHeader>
-                            {contacts!.map((contact, id) => <Contact contact={contact} key={id}/>)}
+                            <ST.ContactsList>
+                                {contacts!.map((contact, id) => <Contact contact={contact} key={id}/>)}
+                            </ST.ContactsList>
                         </>
                         :
                         <ST.ContactsText>

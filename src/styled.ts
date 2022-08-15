@@ -11,6 +11,24 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
   }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    opacity: 0.7;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const AppWrapper = styled.div`
@@ -335,6 +353,8 @@ export const HomeSiteNameText = styled.p`
 export const HomeContent = styled.div`
   grid-area: content;
   margin: 20px;
+  overflow: hidden;
+  border-radius: 20px;
 `;
 
 
@@ -436,6 +456,13 @@ export const ContactsContent = styled.div`
   justify-content: start;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
+`;
+
+export const ContactsList = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
 `;
 
 export const ContactContainer = styled.div`
