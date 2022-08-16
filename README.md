@@ -5,8 +5,9 @@
 ## Стек
 
 * React v18.2 + Typescript
-* Redux + Redux-toolkit
+* Redux + Redux-toolkit + RTK Query
 * Styled Components
+* React Image Crop
 * NodeJS v16.13.1
 * JSON Server(JSON Server Auth)
 
