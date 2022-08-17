@@ -15,7 +15,7 @@
 
 Для запуска сервера прописать в папке проекта:
 
-`json-server-auth db.json -r routes.json —port 8000`
+`json-server-auth db.json -r routes.json --port 8000`
 
 Для запуска приложения прописать в папке проекта:
 
